@@ -8,7 +8,7 @@ import { Message } from '../message.model';
 })
 export class MessageItemComponent implements OnInit {
 
-  @Input() message: Message
+  @Input() message: Message;
 
   constructor() { }
 
