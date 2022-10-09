@@ -1,0 +1,10 @@
+<app-header (selectedFeatureEvent)="switchView($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" [ngSwitch]="selectedFeature">
+      <app-documents *ngSwitchCase="'documents'"></app-documents>
+      <app-messages *ngSwitchCase="'messages'"></app-messages>
+      <app-contacts *ngSwitchCase="'contacts'"></app-contacts>
+    </div>
+  </div>
+</div>
