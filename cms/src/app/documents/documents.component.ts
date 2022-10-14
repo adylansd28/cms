@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Document } from './document.model';
+import { DocumentService } from './document.service';
 
 @Component({
   selector: 'app-documents',
@@ -10,9 +11,12 @@ export class DocumentsComponent implements OnInit {
 
   currentDocument: Document;
 
-  constructor() { }
+  constructor(private docService: DocumentService) { }
 
   ngOnInit(): void {
+    this.docService.documentSelectedEvent.subscribe(document => {
+      this.currentDocument = document
+    });
   }
 
   getCurrentDocument(newDoc: Document){
