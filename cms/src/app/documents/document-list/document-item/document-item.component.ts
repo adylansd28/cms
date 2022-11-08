@@ -9,6 +9,7 @@ import { Document } from '../../document.model';
 export class DocumentItemComponent implements OnInit {
 
   @Input() documentChild: Document;
+  @Input() index: number;
 
   constructor() { }
 

@@ -1,11 +1,13 @@
 <a
-(click)="onSelected()"
+    style="cursor: pointer;"
+    [routerLink] = "[index]"
+    routerLinkActive="active"
 >
 
     <div class="panel-group">
         <div class="panel panel-default">
-            {{ newContact.name }}
-            <img src="{{ newContact.imageUrl }}" alt="{{newContact.name}}">
+            {{ contactChild.name }}
+            <img src="{{ contactChild.imageUrl }}" alt="{{contactChild.name}}">
         </div>
     </div>
 

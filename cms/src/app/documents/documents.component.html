@@ -4,9 +4,7 @@
   </div>
 
   <div class="col-md-4">
-    <app-document-detail
-    [document]="currentDocument"
-    *ngIf="currentDocument; else selectDocument"></app-document-detail>
+    <router-outlet></router-outlet>
     <ng-template #selectDocument>
       <p>Please select a document!</p>
     </ng-template>
