@@ -19,6 +19,22 @@
         <div class="panel-body">
             <p>Email: {{ contact.email }}</p>
             <p>Phone: {{ contact.phone }}</p>
+
+            <div class="row" *ngIf="contact.group">
+                <div class="col-xs-12">
+                    <strong>Group Contacts:</strong>
+                    <div class="row">
+                        <div class="col-xs-12" *ngFor="let groupContact of contact.group;">
+                            <app-contact-item
+                                class="col-sm-11"
+                                [contactChild]="groupContact"
+                            ></app-contact-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
+        
     </div>
 </div>

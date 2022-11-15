@@ -4,10 +4,15 @@
             <h2>Contacts <a class="btn btn-success pull-right" routerLink="/contacts/new">New Contact</a></h2>
         </div>
         <div class="panel-body" >
-            <app-contact-item
-            *ngFor="let cont of contacts; let i = index"
-            [contactChild]="cont"
-            [index]="i"></app-contact-item>
+            <div class="row">
+                <div class="col-xs-12">
+                    <app-contact-item
+                    *ngFor="let cont of contacts; let i = index"
+                    [contactChild]="cont"
+                    [index]="i"
+                    dnd-draggable [dragEnabled]="true" [dragData]="cont" [dropZones]="['contactGroup']"></app-contact-item>
+                </div>
+            </div>
         </div>
     </div>
 </div>
