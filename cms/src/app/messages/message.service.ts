@@ -18,7 +18,7 @@ export class MessageService {
   constructor(private http: HttpClient) {
     this.messages = MOCKMESSAGES;
     this.maxMessageId = this.getMaxId();
-    this.http.get<Message[]>("https://cms-wdd430-ds-default-rtdb.firebaseio.com/messages.json")
+    this.http.get<Message[]>("http://localhost:3000/messages")
     .subscribe(
       // success method
       (messages: Message[] ) => {
@@ -61,12 +61,27 @@ export class MessageService {
 
   }
 
-  addMessage(newMessage: Message){
-    this.maxMessageId++;
-    newMessage.id = this.maxMessageId.toString();
-    this.messages.push(newMessage);
-    this.messageChangedEvent.emit(this.messages.slice());
-    this.storeDocuments();
+  addMessage(message: Message) {
+    if (!message) {
+      return;
+    }
+
+    // make sure id of the new Document is empty
+    message.id = '';
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // add to database
+    this.http.post<{ message: string, document: Message }>('http://localhost:3000/documents',
+      message,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.messages.push(responseData.document);
+          this.sortAndSend();
+        }
+      );
   }
 
   getMaxId(): number {
@@ -99,5 +114,16 @@ export class MessageService {
     );
 
   }
+
+  sortAndSend() {
+    this.maxMessageId = this.getMaxId();
+    this.messages.sort((a: Message, b: Message) => {
+        if (a < b) return -1;
+        else if (a > b) return 1;
+        else return 0;
+    });
+    const clonedDocuments = this.messages.slice()
+    this.messageListChangedEvent.next(clonedDocuments);
+}
   
 }
